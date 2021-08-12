@@ -1,0 +1,14 @@
+version: '2'
+services:
+  ecc-postgresql:
+    container_name: postgresql-electrolux-code-challenge
+    image: postgres:11.5
+    environment:
+      - POSTGRES_USER=postgres_rw_user
+      - POSTGRES_PASSWORD=postgres_rw_password
+      - POSTGRES_DB=electrolux_code_challenge_db
+    ports:
+      - 5533:5533
+    expose:
+      - 5533
+    command: -p 5533

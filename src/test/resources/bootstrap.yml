@@ -1,0 +1,3 @@
+embedded:
+  postgresql:
+    dockerImage: postgres:11-alpine

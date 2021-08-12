@@ -5,36 +5,34 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import it.dmastro.ecc.dataobject.appliance.ApplianceDTO;
-import it.dmastro.ecc.service.IApplianceService;
+import it.dmastro.ecc.dataobject.customer.CustomerDTO;
+import it.dmastro.ecc.service.ICustomerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zalando.problem.Problem;
 
 @RestController
-@RequestMapping("/api/v1/appliances")
+@RequestMapping("/api/v1/customers")
 @Slf4j
-public class ApplianceController {
+public class CustomerController {
 
-  static final String APPLIANCE_CONNECTED = "Appliance %s is connected";
+  private final ICustomerService customerService;
 
-  private final IApplianceService applianceService;
-
-  public ApplianceController(IApplianceService applianceService) {
-    this.applianceService = applianceService;
+  public CustomerController(ICustomerService customerService) {
+    this.customerService = customerService;
   }
 
   @Operation(summary = "Set appliance as connected")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "OK",
           content = { @Content(mediaType = "application/json",
-              schema = @Schema(implementation = ApplianceDTO.class)) }),
+              schema = @Schema(implementation = CustomerDTO.class)) }),
       @ApiResponse(responseCode = "422", description = "Bad Request",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Problem.class))),
@@ -44,11 +42,10 @@ public class ApplianceController {
       @ApiResponse(responseCode = "500", description = "Internal Server Error",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Problem.class))) })
-  @PostMapping(value = "/{applianceId}/connections", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ApplianceDTO> setConnected(@PathVariable String applianceId) {
-    ApplianceDTO appliance = applianceService.getAppliance(applianceId);
-    applianceService.updateApplianceConnectionTime(appliance);
-    return ResponseEntity.status(HttpStatus.OK).body(appliance);
+  @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CustomerDTO> setConnected(@PathVariable String customerId) {
+    CustomerDTO customer = customerService.getCustomer(customerId);
+    return ResponseEntity.status(HttpStatus.OK).body(customer);
   }
 
 }

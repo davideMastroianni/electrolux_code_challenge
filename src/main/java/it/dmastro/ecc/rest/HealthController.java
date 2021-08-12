@@ -5,11 +5,11 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import it.dmastro.ecc.dataobject.BaseResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,7 +24,7 @@ public class HealthController {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "OK",
           content = { @Content(mediaType = "application/json",
-              schema = @Schema(implementation = BaseResponse.class)) }),
+              schema = @Schema(implementation = String.class)) }),
       @ApiResponse(responseCode = "400", description = "Bad Request",
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Problem.class))),
@@ -35,11 +35,8 @@ public class HealthController {
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Problem.class))) })
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public BaseResponse getHealth() {
-    BaseResponse response = new BaseResponse();
-    response.setStatus(HttpStatus.OK);
-    response.setSuccess(true);
-    log.info(response.toString());
-    return response;
+  public ResponseEntity<String> getHealth() {
+    log.info("Ecc is up and running");
+    return ResponseEntity.status(HttpStatus.OK).body("OK");
   }
 }

@@ -1,13 +1,14 @@
 package it.dmastro.ecc.service;
 
-import it.dmastro.ecc.entity.Appliance;
+
+import it.dmastro.ecc.dataobject.appliance.ApplianceDTO;
 
 public interface IApplianceService {
 
-  Appliance getAppliance(String applianceId);
+  ApplianceDTO getAppliance(String applianceId);
 
-  void updateApplianceConnectionTime(Appliance appliance);
+  void updateApplianceConnectionTime(ApplianceDTO appliance);
 
-  void saveAppliance(Appliance appliance);
+  void saveAppliance(ApplianceDTO appliance);
 
 }

@@ -35,11 +35,11 @@ class ApplianceServiceTest {
 
   Appliance appliance;
 
-  String timeToLive;
+  long timeToLive;
 
   @BeforeEach
   void setUp() {
-    timeToLive = "1";
+    timeToLive = 1;
     applianceService = new ApplianceService(applianceRepository, timeToLive);
 
     appliance = new Appliance();
@@ -50,13 +50,42 @@ class ApplianceServiceTest {
   }
 
   @Test
-  void givenApplianceIdAndApplianceExistsWhenGetApplianceThenReturnAppliance() {
+  void givenApplianceIdAndApplianceExistsAndApplianceIsNotConnectedWhenGetApplianceThenReturnAppliance() {
     given(applianceRepository.findByApplianceId(appliance.getApplianceId())).willReturn(Optional.of(appliance));
 
     Appliance result = applianceService.getAppliance(appliance.getApplianceId());
 
     assertThat(result).isNotNull();
     assertThat(result.getId()).isEqualTo(appliance.getId());
+    assertThat(result.isConnected()).isFalse();
+    verify(applianceRepository, times(1)).findByApplianceId(appliance.getApplianceId());
+  }
+
+  @Test
+  void givenApplianceAndApplianceIsConnectedAndNotExpiredWhenGetApplianceThenReturnApplianceThenIsConnected() {
+    appliance.setConnected(true);
+    appliance.setConnectionDate(LocalDateTime.now());
+    given(applianceRepository.findByApplianceId(appliance.getApplianceId())).willReturn(Optional.of(appliance));
+
+    Appliance result = applianceService.getAppliance(appliance.getApplianceId());
+
+    assertThat(result).isNotNull();
+    assertThat(result.getId()).isEqualTo(appliance.getId());
+    assertThat(result.isConnected()).isTrue();
+    verify(applianceRepository, times(1)).findByApplianceId(appliance.getApplianceId());
+  }
+
+  @Test
+  void givenApplianceAndApplianceIsConnectedAndExpiredWhenGetApplianceThenReturnApplianceThenIsConnected() {
+    appliance.setConnected(true);
+    appliance.setConnectionDate(LocalDateTime.now().plusMinutes(-2));
+    given(applianceRepository.findByApplianceId(appliance.getApplianceId())).willReturn(Optional.of(appliance));
+
+    Appliance result = applianceService.getAppliance(appliance.getApplianceId());
+
+    assertThat(result).isNotNull();
+    assertThat(result.getId()).isEqualTo(appliance.getId());
+    assertThat(result.isConnected()).isFalse();
     verify(applianceRepository, times(1)).findByApplianceId(appliance.getApplianceId());
   }
 
@@ -72,13 +101,12 @@ class ApplianceServiceTest {
 
   @Test
   void givenValidApplianceWhenSaveApplianceThenUpdateModifyDateThenPersistEntity() {
-    LocalDateTime localDateTime = appliance.getModifiedDate();
     given(applianceRepository.save(applianceCaptor.capture())).willReturn(appliance);
 
     applianceService.saveAppliance(appliance);
 
     Appliance captureAppliance = applianceCaptor.getValue();
-    assertThat(captureAppliance.getModifiedDate()).isNotEqualTo(localDateTime);
+    assertThat(captureAppliance.getModifiedDate()).isNotNull();
     verify(applianceRepository, times(1)).save(captureAppliance);
   }
 
@@ -91,4 +119,17 @@ class ApplianceServiceTest {
 
     verify(applianceRepository, times(1)).save(applianceCaptor.getValue());
   }
+
+  @Test
+  void givenApplianceWhenUpdateApplianceConnectionTimeThenIsConnectedTrueThenConnectionDateIsUpdated() {
+    given(applianceRepository.save(applianceCaptor.capture())).willReturn(appliance);
+
+    applianceService.updateApplianceConnectionTime(appliance);
+
+    Appliance captureAppliance = applianceCaptor.getValue();
+    assertThat(captureAppliance.getConnectionDate()).isNotNull();
+    assertThat(captureAppliance.isConnected()).isTrue();
+    verify(applianceRepository, times(1)).save(captureAppliance);
+  }
+
 }

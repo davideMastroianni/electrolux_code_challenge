@@ -6,6 +6,8 @@ public interface IApplianceService {
 
   Appliance getAppliance(String applianceId);
 
+  void updateApplianceConnectionTime(Appliance appliance);
+
   void saveAppliance(Appliance appliance);
 
 }

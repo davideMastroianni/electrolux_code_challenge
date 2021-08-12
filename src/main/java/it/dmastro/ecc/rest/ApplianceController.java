@@ -47,8 +47,7 @@ public class ApplianceController {
   @PostMapping(value = "/{applianceId}/connections", produces = MediaType.APPLICATION_JSON_VALUE)
   public BaseResponse setConnected(@PathVariable String applianceId) {
     Appliance appliance = applianceService.getAppliance(applianceId);
-    appliance.setConnected(true);
-    applianceService.saveAppliance(appliance);
+    applianceService.updateApplianceConnectionTime(appliance);
     return new BaseResponse(true, HttpStatus.OK, String.format(APPLIANCE_CONNECTED, applianceId));
   }
 

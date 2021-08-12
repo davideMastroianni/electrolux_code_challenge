@@ -1,5 +1,6 @@
 package it.dmastro.ecc.entity;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @AllArgsConstructor
@@ -33,7 +35,11 @@ public class Appliance extends AbstractEntity {
   String factoryNumber;
 
   @Column(name = "is_connected", nullable = false)
-  boolean isConnected = false;
+  boolean isConnected = true;
+
+  @Column(name = "connection_timestamp", nullable = false)
+  @CreationTimestamp
+  LocalDateTime connectionDate;
 
 
 }

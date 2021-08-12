@@ -17,10 +17,10 @@ public class ApplianceService implements IApplianceService {
 
   private final ApplianceRepository applianceRepository;
 
-  private final String timeToLive;
+  private final long timeToLive;
 
   public ApplianceService(ApplianceRepository applianceRepository,
-      @Value("${appliance.time-to-live}") String timeToLive) {
+      @Value("${appliance.time-to-live}") long timeToLive) {
     this.applianceRepository = applianceRepository;
     this.timeToLive = timeToLive;
   }
@@ -32,7 +32,17 @@ public class ApplianceService implements IApplianceService {
       log.error(String.format("Appliance not found with id %s", applianceId));
       throw new EccNotFoundException();
     }
-    return applianceFound.get();
+    Appliance appliance = applianceFound.get();
+    boolean connected = appliance.isConnected() && !isConnectionDateExpired(appliance);
+    appliance.setConnected(connected);
+    return appliance;
+  }
+
+  @Override
+  public void updateApplianceConnectionTime(Appliance appliance) {
+    appliance.setConnectionDate(LocalDateTime.now());
+    appliance.setConnected(true);
+    saveAppliance(appliance);
   }
 
   @Override
@@ -45,4 +55,10 @@ public class ApplianceService implements IApplianceService {
       throw new EccUpsertFailedException();
     }
   }
+
+  private boolean isConnectionDateExpired(Appliance appliance) {
+    LocalDateTime date = appliance.getConnectionDate();
+    return LocalDateTime.now().isAfter(date.plusMinutes(timeToLive));
+  }
+
 }

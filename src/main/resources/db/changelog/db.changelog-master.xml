@@ -62,4 +62,12 @@
     />
   </changeSet>
 
+  <changeSet id="1.1" author="davide_mastroianni">
+    <addColumn tableName="appliance">
+      <column name="connection_timestamp" type="timestamp">
+        <constraints  nullable="false"/>
+      </column>
+    </addColumn>
+  </changeSet>
+
 </databaseChangeLog>

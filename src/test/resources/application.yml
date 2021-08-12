@@ -22,3 +22,6 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: validate
+
+appliance:
+  time-to-live: 1

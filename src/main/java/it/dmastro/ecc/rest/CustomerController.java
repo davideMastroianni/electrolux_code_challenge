@@ -13,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.zalando.problem.Problem;
@@ -28,7 +30,7 @@ public class CustomerController {
     this.customerService = customerService;
   }
 
-  @Operation(summary = "Set appliance as connected")
+  @Operation(summary = "Get customer by customer id")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "OK",
           content = { @Content(mediaType = "application/json",
@@ -43,8 +45,28 @@ public class CustomerController {
           content = @Content(mediaType = "application/json",
               schema = @Schema(implementation = Problem.class))) })
   @GetMapping(value = "/{customerId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<CustomerDTO> setConnected(@PathVariable String customerId) {
+  public ResponseEntity<CustomerDTO> getCustomer(@PathVariable String customerId) {
     CustomerDTO customer = customerService.getCustomer(customerId);
+    return ResponseEntity.status(HttpStatus.OK).body(customer);
+  }
+
+  @Operation(summary = "save new customer")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "OK",
+          content = { @Content(mediaType = "application/json",
+              schema = @Schema(implementation = CustomerDTO.class)) }),
+      @ApiResponse(responseCode = "422", description = "Bad Request",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = Problem.class))),
+      @ApiResponse(responseCode = "404", description = "Not Found",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = Problem.class))),
+      @ApiResponse(responseCode = "500", description = "Internal Server Error",
+          content = @Content(mediaType = "application/json",
+              schema = @Schema(implementation = Problem.class))) })
+  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<CustomerDTO> saveCustomer(@RequestBody CustomerDTO customerDTO) {
+    CustomerDTO customer = customerService.saveCustomer(customerDTO);
     return ResponseEntity.status(HttpStatus.OK).body(customer);
   }
 

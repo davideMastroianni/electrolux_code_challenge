@@ -4,10 +4,12 @@ import it.dmastro.ecc.dataobject.appliance.ApplianceDTO;
 import it.dmastro.ecc.dataobject.customer.CustomerDTO;
 import it.dmastro.ecc.entity.Customer;
 import it.dmastro.ecc.exceptions.EccNotFoundException;
+import it.dmastro.ecc.exceptions.EccUpsertFailedException;
 import it.dmastro.ecc.repository.CustomerRepository;
 import it.dmastro.ecc.service.ICustomerApplianceService;
 import it.dmastro.ecc.service.ICustomerService;
 import it.dmastro.ecc.service.utils.CustomerMapper;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,4 +45,20 @@ public class CustomerService implements ICustomerService {
     return customer;
   }
 
+  @Override
+  public CustomerDTO saveCustomer(CustomerDTO customerDTO) {
+    Customer customer = customerMapper.mapToEntity(customerDTO);
+    customer = saveCustomer(customer);
+    return customerMapper.mapToDto(customer);
+  }
+
+  private Customer saveCustomer(Customer customer) {
+    try {
+      customer.setModifiedDate(LocalDateTime.now());
+      return customerRepository.save(customer);
+    } catch (Exception e) {
+      log.error(String.format("Failed to upsert customer %s", customer.getId().toString()));
+      throw new EccUpsertFailedException();
+    }
+  }
 }

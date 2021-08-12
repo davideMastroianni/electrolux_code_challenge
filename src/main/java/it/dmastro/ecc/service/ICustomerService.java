@@ -6,4 +6,6 @@ public interface ICustomerService {
 
   CustomerDTO getCustomer(String customerId);
 
+  CustomerDTO saveCustomer(CustomerDTO customerDTO);
+
 }

@@ -8,7 +8,6 @@ import static org.mockito.Mockito.verify;
 
 import it.dmastro.ecc.dataobject.appliance.ApplianceDTO;
 import it.dmastro.ecc.dataobject.customer.CustomerDTO;
-import it.dmastro.ecc.entity.Appliance;
 import it.dmastro.ecc.entity.Customer;
 import it.dmastro.ecc.exceptions.EccNotFoundException;
 import it.dmastro.ecc.exceptions.EccUpsertFailedException;
@@ -44,13 +43,15 @@ class CustomerServiceTest {
   CustomerMapper customerMapper;
 
   @Captor
-  ArgumentCaptor<Customer> CustomerCaptor;
+  ArgumentCaptor<Customer> customerCaptor;
 
   CustomerService customerService;
 
   ApplianceDTO applianceDTO;
 
   Customer customer;
+
+  CustomerDTO customerDTO;
 
   @BeforeEach
   void setUp() {
@@ -73,6 +74,16 @@ class CustomerServiceTest {
     applianceDTO.setFactoryNumber(RandomStringUtils.randomAlphanumeric(3));
     applianceDTO.setConnected(true);
     applianceDTO.setConnectionDate(LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME));
+
+    customerDTO = new CustomerDTO();
+    customerDTO.setAddress(customer.getAddress());
+    customerDTO.setCity(customer.getCity());
+    customerDTO.setCountry(customer.getCountry());
+    customerDTO.setFirstName(customer.getFirstName());
+    customerDTO.setLastName(customer.getLastName());
+    customerDTO.setState(customer.getState());
+    customerDTO.setZipCode(customer.getZipCode());
+    customerDTO.setId(customer.getId().toString());
   }
 
   @Test
@@ -101,6 +112,28 @@ class CustomerServiceTest {
     assertThatThrownBy(() -> customerService.getCustomer(falseCustomerId.toString()))
         .isInstanceOf(EccNotFoundException.class);
     verify(customerRepository, times(1)).findById(falseCustomerId);
+  }
+
+
+  @Test
+  void givenValidCustomerWhenSaveCustomerThenUpdateModifyDateThenPersistEntity() {
+    given(customerRepository.save(customerCaptor.capture())).willReturn(customer);
+
+    customerService.saveCustomer(customerDTO);
+
+    Customer captureAppliance = customerCaptor.getValue();
+    assertThat(captureAppliance.getModifiedDate()).isNotNull();
+    verify(customerRepository, times(1)).save(captureAppliance);
+  }
+
+  @Test
+  void givenInvalidCustomerWhenSaveCustomerThenPersistEntityWithoutModifying() {
+    given(customerRepository.save(customerCaptor.capture())).willThrow(new EccUpsertFailedException());
+
+    assertThatThrownBy(() -> customerService.saveCustomer(customerDTO))
+        .isInstanceOf(EccUpsertFailedException.class);
+
+    verify(customerRepository, times(1)).save(customerCaptor.getValue());
   }
 
 

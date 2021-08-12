@@ -56,15 +56,16 @@ public class ApplianceService implements IApplianceService, ICustomerApplianceSe
   }
 
   @Override
-  public void saveAppliance(ApplianceDTO applianceDTO) {
+  public ApplianceDTO saveAppliance(ApplianceDTO applianceDTO) {
     Appliance appliance = applianceMapper.mapToEntity(applianceDTO);
-    saveAppliance(appliance);
+    appliance = saveAppliance(appliance);
+    return applianceMapper.mapToDto(appliance);
   }
 
-  private void saveAppliance(Appliance appliance) {
+  private Appliance saveAppliance(Appliance appliance) {
     try {
       appliance.setModifiedDate(LocalDateTime.now());
-      applianceRepository.save(appliance);
+      return applianceRepository.save(appliance);
     } catch (Exception e) {
       log.error(String.format("Failed to upsert appliance %s", appliance.getApplianceId()));
       throw new EccUpsertFailedException();

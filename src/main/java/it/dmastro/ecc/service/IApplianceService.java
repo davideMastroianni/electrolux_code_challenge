@@ -9,6 +9,6 @@ public interface IApplianceService {
 
   void updateApplianceConnectionTime(ApplianceDTO appliance);
 
-  void saveAppliance(ApplianceDTO appliance);
+  ApplianceDTO saveAppliance(ApplianceDTO appliance);
 
 }

@@ -1,0 +1,2 @@
+SERVICE_NAME: electrolux-code-challenge
+ENV: local

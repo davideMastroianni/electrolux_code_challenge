@@ -10,6 +10,7 @@ import it.dmastro.ecc.entity.Appliance;
 import it.dmastro.ecc.exceptions.EccNotFoundException;
 import it.dmastro.ecc.exceptions.EccUpsertFailedException;
 import it.dmastro.ecc.repository.ApplianceRepository;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +35,12 @@ class ApplianceServiceTest {
 
   Appliance appliance;
 
+  String timeToLive;
+
   @BeforeEach
   void setUp() {
-    applianceService = new ApplianceService(applianceRepository);
+    timeToLive = "1";
+    applianceService = new ApplianceService(applianceRepository, timeToLive);
 
     appliance = new Appliance();
     appliance.setCustomerId(UUID.randomUUID());
@@ -67,13 +71,14 @@ class ApplianceServiceTest {
   }
 
   @Test
-  void givenValidApplianceWhenSaveApplianceThenPersistEntityWithoutModifying() {
+  void givenValidApplianceWhenSaveApplianceThenUpdateModifyDateThenPersistEntity() {
+    LocalDateTime localDateTime = appliance.getModifiedDate();
     given(applianceRepository.save(applianceCaptor.capture())).willReturn(appliance);
 
     applianceService.saveAppliance(appliance);
 
     Appliance captureAppliance = applianceCaptor.getValue();
-    assertThat(captureAppliance).isEqualTo(appliance);
+    assertThat(captureAppliance.getModifiedDate()).isNotEqualTo(localDateTime);
     verify(applianceRepository, times(1)).save(captureAppliance);
   }
 

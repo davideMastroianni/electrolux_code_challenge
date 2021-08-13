@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.dmastro.ecc.dataobject.appliance.ApplianceDTO;
 import it.dmastro.ecc.service.IApplianceService;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -48,7 +50,7 @@ public class ApplianceController {
   @PostMapping(value = "/{applianceId}/connections", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<ApplianceDTO> setConnected(@PathVariable String applianceId) {
     ApplianceDTO appliance = applianceService.getAppliance(applianceId);
-    applianceService.updateApplianceConnectionTime(appliance);
+    appliance = applianceService.updateApplianceConnectionTime(appliance);
     return ResponseEntity.status(HttpStatus.OK).body(appliance);
   }
 

@@ -81,7 +81,7 @@ class ApplianceControllerTest {
         .andExpect(jsonPath("$.customerId").value(customer.getId().toString()))
         .andExpect(jsonPath("$.applianceId").value(appliance.getApplianceId()))
         .andExpect(jsonPath("$.factoryNumber").value(appliance.getFactoryNumber()))
-        .andExpect(jsonPath("$.connected").value("false"));
+        .andExpect(jsonPath("$.connected").value("true"));
 
     Appliance applianceFound = applianceRepository.findByApplianceId(appliance.getApplianceId())
         .orElse(null);
@@ -98,6 +98,7 @@ class ApplianceControllerTest {
 
   @Test
   void givenApplianceDTOWhenSaveApplianceThenResponseStatusIsOkThenPersistAppliance() throws Exception {
+    applianceDTO.setApplianceId(RandomStringUtils.randomAlphanumeric(5));
     MvcResult response = mvc.perform(post("/api/v1/appliances")
             .content(asJsonString(applianceDTO))
             .contentType(MediaType.APPLICATION_JSON))

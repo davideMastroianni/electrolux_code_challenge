@@ -33,7 +33,9 @@ public class ApplianceMapper {
     }
     appliance.setApplianceId(applianceDTO.getApplianceId());
     appliance.setConnected(applianceDTO.isConnected());
-    appliance.setConnectionDate(LocalDateTime.parse(applianceDTO.getConnectionDate(), DateTimeFormatter.ISO_DATE_TIME));
+    if (applianceDTO.getConnectionDate() != null) {
+      appliance.setConnectionDate(LocalDateTime.parse(applianceDTO.getConnectionDate(), DateTimeFormatter.ISO_DATE_TIME));
+    }
     appliance.setFactoryNumber(applianceDTO.getFactoryNumber());
     return appliance;
   }

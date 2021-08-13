@@ -48,11 +48,12 @@ public class ApplianceService implements IApplianceService, ICustomerApplianceSe
   }
 
   @Override
-  public void updateApplianceConnectionTime(ApplianceDTO applianceDTO) {
+  public ApplianceDTO updateApplianceConnectionTime(ApplianceDTO applianceDTO) {
     Appliance appliance = applianceMapper.mapToEntity(applianceDTO);
     appliance.setConnectionDate(LocalDateTime.now());
     appliance.setConnected(true);
-    saveAppliance(appliance);
+    appliance = saveAppliance(appliance);
+    return applianceMapper.mapToDto(appliance);
   }
 
   @Override

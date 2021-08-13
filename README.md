@@ -28,36 +28,15 @@
 	5-Do Unit Testing
 	6-Use Java or C#
 
-##  Data:
-Below you have all customers from the system; their addresses and the appliances they own.
+# Install and run
 
-|-----------------------------------|
-| Kalles Grustransporter AB         |
-| Cementvägen 8, 111 11 Södertälje  |
-|-----------------------------------|
-| AID (ApplianceId)   Factory. nr.  |
-|-----------------------------------|
-| YS2R4X20005399401     ABC123      |
-| VLUR4X20009093588     DEF456      |
-| VLUR4X20009048066     GHI789      |
-|-----------------------------------|
+* Run ```mvn clean compile```
+* To run the service launch ./scripts/run.sh from root directory
+* Import the postman collections: ecc-integration-test.postman_collection.json and ecc-integration-test-environment.postman_environment.json
+* Run the postman routine to execute the tests
 
-|-----------------------------------|
-| Johans Bulk AB                    |
-| Balkvägen 12, 222 22 Stockholm    |
-|-----------------------------------|
-| AID (ApplianceId)   Factory. nr.  |
-|-----------------------------------|
-| YS2R4X20005388011     JKL012      |
-| YS2R4X20005387949     MNO345      |
-------------------------------------|
+# Swagger and openApi
 
-|-----------------------------------|
-| Haralds Värdetransporter AB       |
-| Budgetvägen 1, 333 33 Uppsala     |
-|-----------------------------------|
-| AID (ApplianceId)   Factory. nr.  |
-|-----------------------------------|
-| YS2R4X20009048066     PQR678      |
-| YS2R4X20005387055     STU901      |
-|-----------------------------------|
+After running the service a postman collection from swagger can be found
+* http://localhost:8080/api-docs
+* http://localhost:8080/swagger-ui.html

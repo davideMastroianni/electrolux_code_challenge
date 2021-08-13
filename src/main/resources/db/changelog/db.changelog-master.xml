@@ -70,4 +70,8 @@
     </addColumn>
   </changeSet>
 
+  <changeSet id="1.2" author="davide_mastroianni">
+    <addUniqueConstraint tableName="appliance" columnNames="appliance_id"/>
+  </changeSet>
+
 </databaseChangeLog>

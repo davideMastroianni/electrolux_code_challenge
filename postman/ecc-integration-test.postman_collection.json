@@ -1,0 +1,3318 @@
+{
+	"info": {
+		"_postman_id": "266d9b64-bbca-4dd5-93fb-2e0132f72d76",
+		"name": "ecc-integration-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Happy Flows",
+			"item": [
+				{
+					"name": "0 - Health Check",
+					"item": [
+						{
+							"name": "Health api",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"// Assert response",
+											"pm.test(\"response body is OK\", function(){",
+											"    var expected = 'OK';",
+											"    var value = responseBody;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/health",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"health"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "\"dolore dolore\""
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/health",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"health"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "1 - Create Customers",
+					"item": [
+						{
+							"name": "Create Customer 1",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"customer_1_id\", res[\"id\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Via del Tei\",\n    \"city\": \"Moimacco\",\n    \"country\": \"Italy\",\n    \"firstName\": \"Davide\",\n    \"lastName\": \"Mastroianni\",\n    \"state\": \"UD\",\n    \"zipCode\": \"33040\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Create Customer 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"customer_2_id\", res[\"id\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Via del campo\",\n    \"city\": \"Genova\",\n    \"country\": \"Italy\",\n    \"firstName\": \"Fabrizio\",\n    \"lastName\": \"De Andrè\",\n    \"state\": \"GE\",\n    \"zipCode\": \"16161\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"address\": \"<string>\",\n    \"city\": \"<string>\",\n    \"country\": \"<string>\",\n    \"firstName\": \"<string>\",\n    \"id\": \"<string>\",\n    \"lastName\": \"<string>\",\n    \"state\": \"<string>\",\n    \"zipCode\": \"<string>\",\n    \"appliances\": [\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        },\n        {\n            \"applianceId\": \"<string>\",\n            \"customerId\": \"<string>\",\n            \"factoryNumber\": \"<string>\",\n            \"connectionDate\": \"<string>\",\n            \"id\": \"<string>\",\n            \"connected\": \"<boolean>\"\n        }\n    ]\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "2 - Save Appliances",
+					"item": [
+						{
+							"name": "Save appliance 1a",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"appliance has same customer id\", function(){",
+											"    var expected = pm.environment.get(\"customer_1_id\");",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.customerId;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"appliance_1a_id\", res[\"applianceId\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"applianceId\": \"{{$randomUUID}}\",\n    \"customerId\": \"{{customer_1_id}}\",\n    \"factoryNumber\": \"ABC123\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Save appliance 1b",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"appliance has same customer id\", function(){",
+											"    var expected = pm.environment.get(\"customer_1_id\");",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.customerId;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"appliance_1b_id\", res[\"applianceId\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"applianceId\": \"{{$randomUUID}}\",\n    \"customerId\": \"{{customer_1_id}}\",\n    \"factoryNumber\": \"DEF456\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Save appliance 1c",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"appliance has same customer id\", function(){",
+											"    var expected = pm.environment.get(\"customer_1_id\");",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.customerId;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"appliance_1c_id\", res[\"applianceId\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"applianceId\": \"{{$randomUUID}}\",\n    \"customerId\": \"{{customer_1_id}}\",\n    \"factoryNumber\": \"GHI789\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Save appliance 2a",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"appliance has same customer id\", function(){",
+											"    var expected = pm.environment.get(\"customer_2_id\");",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.customerId;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"appliance_2a_id\", res[\"applianceId\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"applianceId\": \"{{$randomUUID}}\",\n    \"customerId\": \"{{customer_2_id}}\",\n    \"factoryNumber\": \"JKL012\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Save appliance 2b",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"appliance has same customer id\", function(){",
+											"    var expected = pm.environment.get(\"customer_2_id\");",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.customerId;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"if (responseBody !== null && responseBody.length !== 0 ){",
+											"    var res = JSON.parse(responseBody);",
+											"    pm.environment.set(\"appliance_2b_id\", res[\"applianceId\"]);",
+											"}",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"applianceId\": \"{{$randomUUID}}\",\n    \"customerId\": \"{{customer_2_id}}\",\n    \"factoryNumber\": \"MNO345\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"applianceId\": \"<string>\",\n    \"customerId\": \"<string>\",\n    \"factoryNumber\": \"<string>\",\n    \"connectionDate\": \"<string>\",\n    \"id\": \"<string>\",\n    \"connected\": \"<boolean>\"\n}"
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "3 - Customer with all appliance connected and wait",
+					"item": [
+						{
+							"name": "Get customer 1 and appliance connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"customer 1 has three appliances\", function(){",
+											"    var expected = 3;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances.length;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"pm.test(\"customer 1 appliances are connected\", function(){",
+											"    var expected = true;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances[0].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[1].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[2].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										":customerId"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "customerId",
+											"value": "{{customer_1_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Get customer 2 and appliance connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"customer 2 has two appliances\", function(){",
+											"    var expected = 2;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances.length;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"pm.test(\"customer 2 appliances are connected\", function(){",
+											"    var expected = true;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances[0].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[1].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"setTimeout(function(){}, 61000);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										":customerId"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "customerId",
+											"value": "{{customer_2_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "4 - Customer appliance not connected",
+					"item": [
+						{
+							"name": "Get customer 1 and appliance not connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"customer 1 has three appliances\", function(){",
+											"    var expected = 3;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances.length;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"pm.test(\"customer 1 appliances are connected\", function(){",
+											"    var expected = false;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances[0].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[1].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[2].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										":customerId"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "customerId",
+											"value": "{{customer_1_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Get customer 2 and appliance not connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"customer 2 has two appliances\", function(){",
+											"    var expected = 2;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances.length;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"pm.test(\"customer 2 appliances are connected\", function(){",
+											"    var expected = false;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances[0].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[1].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										":customerId"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "customerId",
+											"value": "{{customer_2_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				},
+				{
+					"name": "5 - Connect appliances",
+					"item": [
+						{
+							"name": "Set appliance 1a as connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances",
+										":applianceId",
+										"connections"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "applianceId",
+											"value": "{{appliance_1a_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Set appliance 2a as connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances",
+										":applianceId",
+										"connections"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "applianceId",
+											"value": "{{appliance_2a_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								}
+							]
+						},
+						{
+							"name": "Set appliance 2b as connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"appliances",
+										":applianceId",
+										"connections"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "applianceId",
+											"value": "{{appliance_2b_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/appliances/:applianceId/connections",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"appliances",
+												":applianceId",
+												"connections"
+											],
+											"variable": [
+												{
+													"key": "applianceId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"applianceId\": \"<string>\",\n \"customerId\": \"<string>\",\n \"factoryNumber\": \"<string>\",\n \"connectionDate\": \"<string>\",\n \"id\": \"<string>\",\n \"connected\": \"<boolean>\"\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "6 - Customer with all appliance connected and wait",
+					"item": [
+						{
+							"name": "Get customer 1 with appliance 1a connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"customer 1 has three appliances\", function(){",
+											"    var expected = 3;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances.length;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"pm.test(\"customer 1 appliances are connected\", function(){",
+											"    var expected = true;",
+											"    var response = JSON.parse(responseBody);",
+											"    var expectedAppliance = pm.environment.get(\"appliance_1a_id\");",
+											"    response.appliances.forEach( appliance => {",
+											"        if (appliance.applianceId == expectedAppliance) {",
+											"            var value = appliance.connected;",
+											"            pm.expect(value).to.eql(expected)",
+											"        }",
+											"    })",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										":customerId"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "customerId",
+											"value": "{{customer_1_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Get customer 2 with all appliance connected",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200\", function(){",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"customer 2 has two appliances\", function(){",
+											"    var expected = 2;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances.length;",
+											"    pm.expect(value).to.eql(expected);",
+											"});",
+											"",
+											"",
+											"pm.test(\"customer 2 appliances are connected\", function(){",
+											"    var expected = true;",
+											"    var response = JSON.parse(responseBody);",
+											"    var value = response.appliances[0].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"    value = response.appliances[1].connected;",
+											"    pm.expect(value).to.eql(expected);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"customers",
+										":customerId"
+									],
+									"variable": [
+										{
+											"description": "(Required) ",
+											"key": "customerId",
+											"value": "{{customer_2_id}}"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Bad Request",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+									"code": 422,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Internal Server Error",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "Not Found",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"status\": {\n  \"statusCode\": 43551699,\n  \"reasonPhrase\": \"tempor\"\n },\n \"instance\": \"https://WZQufAfMchcUxjZsEhVhGFXceu.enurlCUDU9IVMgPJpmd-Ap54CwT.Li\",\n \"type\": \"http://ehxuFmzXfIYBfReOfU.bnikJB.gnwCptNUjuY9,aJ5r4Z2-\",\n \"parameters\": {},\n \"title\": \"ex non\",\n \"detail\": \"commodo occaecat\"\n}"
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/v1/customers/:customerId",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"customers",
+												":customerId"
+											],
+											"variable": [
+												{
+													"key": "customerId"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n \"address\": \"<string>\",\n \"city\": \"<string>\",\n \"country\": \"<string>\",\n \"firstName\": \"<string>\",\n \"id\": \"<string>\",\n \"lastName\": \"<string>\",\n \"state\": \"<string>\",\n \"zipCode\": \"<string>\",\n \"appliances\": [\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  },\n  {\n   \"applianceId\": \"<string>\",\n   \"customerId\": \"<string>\",\n   \"factoryNumber\": \"<string>\",\n   \"connectionDate\": \"<string>\",\n   \"id\": \"<string>\",\n   \"connected\": \"<boolean>\"\n  }\n ]\n}"
+								}
+							]
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
